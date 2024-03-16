@@ -1,0 +1,1217 @@
+local player = game.Players.LocalPlayer
+local username = player.Name
+ 
+if isUsernameWhitelisted(username) then
+    print("Whitelisted.")
+ 
+-- Coins
+ 
+local function formatNumber(number)
+    local suffixes = {"", "K", "M", "B", "T", "Q", "QQ", "QQQ"}
+    local index = 1
+ 
+    while number >= 1000 do
+        number = number / 1000
+        index = index + 1
+    end
+ 
+    return string.format("%.2f%s", number, suffixes[index])
+end
+ 
+local player = game:GetService("Players").LocalPlayer
+local cash = player:WaitForChild("Coin")
+ 
+local function updateParagraphContent()
+    local formattedCash = formatNumber(cash.Value)
+end
+ 
+cash.Changed:Connect(updateParagraphContent)
+ 
+updateParagraphContent()
+ 
+ 
+-- Auto Drop functionality
+local autoDropEnabled = false
+local DropConnection
+ 
+-- Auto sell functionality
+local autoSellEnabled = false
+local sellConnection
+ 
+-- Auto Buy functionality
+local autoBuyEnabled = false
+local purchaseConnection
+ 
+-- Teleport Part
+local partName = "Safe_Place"
+local part = Instance.new("Part")
+part.Name = partName
+part.Size = Vector3.new(100, 1, 100)
+part.Anchored = true
+part.Position = Vector3.new(0, 800, 10000)
+part.Transparency = 0
+part.BrickColor = BrickColor.new("Bright violet")
+part.Parent = game.Workspace
+ 
+local function ChangeColor(newColor)
+    part.BrickColor = BrickColor.new(newColor)
+end
+ 
+local function ChangeTransparency(newTransparency)
+    part.Transparency = newTransparency
+end
+ 
+local function teleportToPart()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+ 
+    if character then
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            humanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 5, 0)
+        end
+    end
+end
+ 
+-- Game Info
+local MarketplaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local isMobile = game:GetService("UserInputService").TouchEnabled
+local platform = isMobile and "Mobile" or "PC"
+local placeId = game.PlaceId
+ 
+local function getGameName()
+    local productInfo = MarketplaceService:GetProductInfo(placeId)
+    if productInfo then
+        local gameName = productInfo.Name
+        return gameName
+    else
+        return "Unknown Game"
+    end
+end
+ 
+local function getGameId()
+    return placeId
+end
+ 
+local function getPlayerInfo()
+    if LocalPlayer then
+        local playerName = LocalPlayer.Name
+        local userId = LocalPlayer.UserId
+        return playerName, userId
+    else
+        return "Unknown Player", "Unknown ID"
+    end
+end
+ 
+local playerName, userId = getPlayerInfo()
+ 
+local function getPlayersInfo()
+    local numPlayers = game.Players.NumPlayers
+    local maxPlayers = game.Players.MaxPlayers
+    return numPlayers, maxPlayers
+end
+ 
+local numPlayers, maxPlayers = getPlayersInfo()
+ 
+local function getPlayerAccountAge()
+    if LocalPlayer then
+        local accountCreationTime = LocalPlayer.AccountAge
+        return math.floor(accountCreationTime)
+    else
+        return "Unknown Age"
+    end
+end
+ 
+local accountAge = getPlayerAccountAge()
+ 
+local isMobile = game:GetService("UserInputService").TouchEnabled
+local platform = isMobile and "Mobile" or "Pc"
+ 
+ 
+local upgradetimea
+local function GetToolFromCharacter()
+    for _, Tool in ipairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+        if Tool:IsA("Tool") then
+            return Tool
+        end
+    end
+end
+ 
+local AutoUpgrading = false
+local YourDadExists = false
+ 
+selectDelay1 = nil
+ 
+local function AutoUpgrade() -- Auto Upgrades The Tool Your Holding To The Jet
+    repeat task.wait(selectDelay1)
+        if GetToolFromCharacter() and AutoUpgrading and GetToolFromCharacter().Name ~= "10082" then
+            local Args = {
+                [1] = {
+                    [GetToolFromCharacter().Name] = 1
+                }
+            }
+ 
+            task.spawn(function()
+                game:GetService("ReplicatedStorage").Functions.Fuse.FuseRF:InvokeServer(unpack(Args))
+            end)
+        else
+            AutoUpgrade()
+        end
+    until
+    YourDadExists == true
+end
+task.spawn(AutoUpgrade)
+local faster
+local upgradetimes
+local function GetToolFromCharactere()
+    for _, Toole in ipairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+        if Toole:IsA("Tool") then
+            return Toole
+        end
+    end
+end
+local AutoUpgradings = false
+local YourDadExistss = false
+ 
+local function AutoUpgrades() 
+    repeat task.wait(upgradetimes)
+        if GetToolFromCharacter() and AutoUpgradings and GetToolFromCharacter().Name ~= "10082" then
+            local Args = {
+                [1] = {
+                [GetToolFromCharactere().Name] = (faster)
+                }
+            }
+ 
+            task.spawn(function()
+                game:GetService("ReplicatedStorage").Functions.Fuse.FuseRF:InvokeServer(unpack(Args))
+            end)
+        else
+            AutoUpgrades()
+        end
+    until
+    YourDadExistss == true
+end
+task.spawn(AutoUpgrades)
+ 
+local AutoDropping = false
+local AutoDropping_Delay = 0
+local CurrentAutoDropping = nil
+ 
+task.spawn(function()
+    while task.wait() do
+        if GetToolFromCharacter() then
+            CurrentAutoDropping = GetToolFromCharacter().Name
+        end
+    end
+end)
+ 
+ 
+selectD = true
+selectD = nil
+ 
+selectDelay = nil
+ 
+local AutoNormalDupee = false
+local AutoColoredDupee = false
+local AutoGoldenDupee = false
+local AutoRainbowDupee = false
+local coloredtime
+local normaltime
+local function AutoNormalDupe()
+    repeat task.wait(selectDelay)
+        if GetToolFromCharacter() and AutoNormalDupee then
+            local Args = {
+                [1] = GetToolFromCharacter().Name,
+                [2] = 6,
+                [3] = selectD,
+            }
+            task.spawn(function()
+                game:GetService("ReplicatedStorage").Functions.Upgrade.UpgradeRF:InvokeServer(unpack(Args))
+            end)
+        else
+            AutoNormalDupe()
+        end
+    until
+    YourDadExists == true
+end
+task.spawn(AutoNormalDupe)
+ 
+selectC = true
+selectC = nil
+ 
+local function AutoColoredDupe()
+    repeat task.wait(selectDelay)
+        if GetToolFromCharacter() and AutoColoredDupee then
+            local Args = {
+                [1] = GetToolFromCharacter().Name,
+                [2] = 6,
+                [3] = selectC,
+            }
+            task.spawn(function()
+                game:GetService("ReplicatedStorage").Functions.Upgrade.UpgradeRF:InvokeServer(unpack(Args))
+            end)
+        else
+            AutoColoredDupe()
+        end
+    until
+    YourDadExists == true
+end
+task.spawn(AutoColoredDupe)
+ 
+ 
+local function AutoGoldenDupe()
+    repeat task.wait(0.01)
+        if GetToolFromCharacter() and AutoGoldenDupee then
+            local Args = {
+                [1] = GetToolFromCharacter().Name,
+                [2] = 6,
+                [3] = "Golden"
+            }
+            task.spawn(function()
+                game:GetService("ReplicatedStorage").Functions.Upgrade.UpgradeRF:InvokeServer(unpack(Args))
+            end)
+        else
+            AutoGoldenDupe()
+        end
+    until
+    YourDadExists == true
+end
+task.spawn(AutoGoldenDupe)
+ 
+local function AutoRainbowDupe()
+    repeat task.wait(0.01)
+        if GetToolFromCharacter() and AutoRainbowDupee then
+            local Args = {
+                [1] = GetToolFromCharacter().Name,
+                [2] = 6,
+                [3] = "Rainbow"
+            }
+            task.spawn(function()
+                game:GetService("ReplicatedStorage").Functions.Upgrade.UpgradeRF:InvokeServer(unpack(Args))
+            end)
+        else
+            AutoRainbowDupe()
+        end
+    until
+    YourDadExists == true
+end
+task.spawn(AutoRainbowDupe)
+ 
+-- Teleport
+ 
+local function teleportToLocation3()
+    teleportToPart("Safe_Place") -- Assuming teleportToPart is a function you have defined
+end
+ 
+-- Extras
+local gameName = getGameName()
+local gameId = getGameId()
+local numPlayers = game.Players.NumPlayers
+local maxPlayers = game.Players.MaxPlayers
+ 
+local paragraphContent = string.format(
+    "Place Id: %s | Players: %d/%d", gameId, numPlayers, maxPlayers)
+ 
+local playerName = game.Players.LocalPlayer.Name
+local userId = game.Players.LocalPlayer.UserId
+local isMobile = game:GetService("UserInputService").TouchEnabled
+local platform = isMobile and "Mobile" or "PC"
+local executor = identifyexecutor()
+ 
+local userPlatformExecutorParagraph = string.format("User: %s | UserID:%d | Platform:%s | Executor:%s", playerName, userId, platform, executor)
+--Ui
+local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/SpxlZ/Ui/main/Lib.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/SpxlZ/Ui/main/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/SpxlZ/Ui/main/Interface.lua"))()
+ 
+ 
+-- Window
+local Window = Fluent:CreateWindow({
+    Title = "Spxlz Hub | Pets Trading | v5.0",
+    SubTitle = "Version: ELITE 😈",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(450, 320),
+    Acrylic = true,
+    Theme = "Dark Violet"
+})
+ 
+-- Tabs
+local Tabs = {
+    Credits = Window:AddTab({ Title = "Info", Icon = "list-checks" }),
+   Dupe = Window:AddTab({ Title = "Dupe", Icon = "bookmark" }),
+   Upgrade = Window:AddTab({ Title = "Upgrade", Icon = "rocket" }),
+Buy = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
+Drop = Window:AddTab({ Title = "Drop", Icon = "droplet" }),
+Sell = Window:AddTab({ Title = "Sell", Icon = "shopping-bag" }),
+Color = Window:AddTab({ Title = "Buy Pets (Color)", Icon = "shopping-cart" }),
+Fuse = Window:AddTab({ Title = "Make Rainbow Pets", Icon = "arrow-left" }),
+Claim = Window:AddTab({ Title = "Claim Redward", Icon = "users" }),
+Tp = Window:AddTab({ Title = "Teleports", Icon = "chevrons-right" }),
+Settings = Window:AddTab({ Title = "Settings", Icon = "user-cog" })
+ 
+}
+ 
+ 
+-- Credits tab
+ 
+Tabs.Credits:AddParagraph({
+        Title = "Made By:",
+        Content = "Spxlz",
+    })
+ 
+Tabs.Credits:AddParagraph({
+        Title = "Game Info:",
+        Content = paragraphContent
+    })
+ 
+Tabs.Credits:AddParagraph({
+        Title = "User, Platform, and Executor Info",
+        Content = userPlatformExecutorParagraph
+    })
+ 
+local formattedCash = formatNumber(cash.Value)
+ 
+local cashParagraph = Tabs.Credits:AddParagraph({
+    Title = "Current Coins",
+    Content = "Coin: ".. formattedCash,
+})
+ 
+ 
+--Dupe
+ 
+ 
+local Toggle = Tabs.Dupe:AddToggle("Auto Dupe", { Title = "Auto Dupe", Default = false })
+ 
+Toggle:OnChanged(function(state)
+AutoNormalDupee = state
+end)
+ 
+Toggle:SetValue(false)
+ 
+local Dropdown = Tabs.Dupe:AddDropdown("Dropdown", {
+        Title = "Selector",
+        Values = {"Normal", "Colored"},
+        Multi = false,
+        Default = 1,
+    })
+ 
+    Dropdown:SetValue("Normal")
+ 
+    Dropdown:OnChanged(function(Value)
+selectD = Value
+selectC = Value
+        print("Dropdown changed:", Value)
+    end)
+ 
+ 
+local Slider = Tabs.Dupe:AddSlider("Slider", {
+        Title = "Delay",
+        Description = "Set Delay For Dupe",
+        Default = 0.1,
+        Min = 0,
+        Max = 5,
+        Rounding = 1,
+        Callback = function(Value)
+        local newDelay = tonumber(Value)
+        if newDelay then
+            if newDelay > 5 then
+                newDelay = 1
+                Fluent:Notify({
+                    Title = "Invalid Delay",
+                    Content = "Delay can't be greater than 5. Set to 0.1.",
+                    Duration = 5
+                })
+            end
+            selectDelay = newDelay
+        else
+            Fluent:Notify({
+                Title = "Invalid Input",
+                Content = "Please enter a valid number.",
+                Duration = 5
+            })
+print("Slider was changed:", Value)
+        end
+    end
+})
+ 
+ 
+--Upgrade
+ 
+local Toggle = Tabs.Upgrade:AddToggle("Auto Upgrade", { Title = "Auto Upgrade", Default = false })
+ 
+Toggle:OnChanged(function(state)
+AutoUpgrading = state
+end)
+ 
+Toggle:SetValue(false)
+ 
+local Slider = Tabs.Upgrade:AddSlider("Slider", {
+        Title = "Upgrade Delay",
+        Description = "Set Delay.",
+        Default = 0.1,
+        Min = 0,
+        Max = 5,
+        Rounding = 1,
+        Callback = function(Value)
+        local newDelay = tonumber(Value)
+        if newDelay then
+            if newDelay > 5 then
+                newDelay = 1
+                Fluent:Notify({
+                    Title = "Invalid Delay",
+                    Content = "Delay can't be greater than 5. Set to 0.1.",
+                    Duration = 5
+                })
+            end
+            selectDelay1 = newDelay
+        else
+            Fluent:Notify({
+                Title = "Invalid Input",
+                Content = "Please enter a valid number.",
+                Duration = 5
+            })
+print("Slider was changed:", Value)
+        end
+    end
+})
+ 
+ 
+--Shop
+ 
+Tabs.Buy:AddParagraph({
+        Title = "NOTE:",
+        Content = "Equip Any Pet you want to Auto Buy (Works Colored too)",
+    })
+ 
+local Toggle = Tabs.Buy:AddToggle("Auto Buy", { Title = "Auto Buy", Default = false })
+ 
+Toggle:OnChanged(function(state)
+autoBuyEnabled = state
+    if state then
+        purchaseConnection = game:GetService("RunService").Heartbeat:Connect(function()
+            game:GetService("ReplicatedStorage").Events.Coin.CoinMarketRE:FireServer("purchase", GetToolFromCharacter().Name)
+        end)
+    else
+        if purchaseConnection then
+            purchaseConnection:Disconnect()
+        end
+    end
+end)
+ 
+Toggle:SetValue(false)
+ 
+ 
+--Drop
+ 
+local Toggle = Tabs.Drop:AddToggle("Auto Drop", { Title = "Auto Drop", Default = false })
+ 
+Toggle:OnChanged(function(state)
+autoDropEnabled = state
+    if state then
+        DropConnection = game:GetService("RunService").Heartbeat:Connect(function()
+            game:GetService("ReplicatedStorage").Events.PickAndDrop.PickAndDropRE:FireServer("Drop", GetToolFromCharacter().Name)
+        end)
+    else
+        if DropConnection then
+            DropConnection:Disconnect()
+        end
+    end
+end)
+ 
+Toggle:SetValue(false)
+ 
+--Sell
+ 
+selectS = true
+selectS = nil
+ 
+local Toggle = Tabs.Sell:AddToggle("Auto Sell", { Title = "Auto Sell", Default = false })
+ 
+Toggle:OnChanged(function(state)
+autoSellEnabled = state
+    if state then
+        sellConnection = game:GetService("RunService").Heartbeat:Connect(function()
+            game:GetService("ReplicatedStorage").Events.Coin.CoinMarketRE:FireServer("sell", GetToolFromCharacter().Name, selectS)
+        end)
+    else
+        if sellConnection then
+            sellConnection:Disconnect()
+        end
+    end
+end)
+ 
+Toggle:SetValue(false)
+ 
+ 
+local Input = Tabs.Sell:AddInput("Input", {
+        Title = "Amount",
+        Default = "",
+       Placeholder = "type any amount.",
+        Numeric = true, -- Only allows numbers
+        Finished = false, -- Only calls callback when you press enter
+        Callback = function(Value)
+selectS = Value
+            print("Input changed:", Value)
+        end
+    })
+ 
+    Input:OnChanged(function()
+        print("Input updated:", Input.Value)
+    end)
+ 
+ 
+-- Tp
+ 
+Tabs.Tp:AddButton({
+    Title = "Teleport (Spawn)",
+    Description = "tps you to (spawn)",
+    Callback = function()
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(83,25,-267)
+    end
+})
+ 
+Tabs.Tp:AddButton({
+    Title = "Teleport (Safe place)",
+    Description = "tps you to (Safe place)",
+    Callback = function()
+   teleportToLocation3()
+    end
+})
+ 
+ 
+Tabs.Tp:AddButton({
+    Title = "Teleport (Leaderboard)",
+    Description = "tps you to (Leaderboard)",
+    Callback = function()
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3,80,-269)
+    end
+})
+ 
+Tabs.Claim:AddButton({
+    Title = "Claim (Redward)",
+    Description = "Gets you a Free Pet.",
+    Callback = function()
+   run = false
+run = not run
+local old = game.Players.LocalPlayer.Character:getChildren()
+for i=1,#old do
+if old[i].Name == "HumanoidRootPart" then
+lastPos = old[i].CFrame
+end
+end
+wait(0.3)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(30,30,-267)
+wait(0.4)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = lastPos
+    end
+})
+ 
+ 
+Tabs.Color:AddParagraph({
+        Title = "Color Pets",
+        Content = "",
+    })
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Spieder",
+    Description = "Require Cash.",
+    Callback = function()
+ local args = {
+        [1] = "purchase",
+        [2] = 40110,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))  
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Ghost",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40126,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Ninja",
+    Description = "Require Cash.",
+    Callback = function()
+     local args = {
+        [1] = "purchase",
+        [2] = 40035,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Goldem!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40037,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Red dämon",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40046,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Unicorn",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40047,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Candymagic",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40124,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored brown bunny",
+    Description = "Require Cash.",
+    Callback = function()
+  local args = {
+        [1] = "purchase",
+        [2] = 40011,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args)) 
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored White Bunny",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40001,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Reindeer!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40030,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Koala!",
+    Description = "Require Cash.",
+    Callback = function()
+       local args = {
+        [1] = "purchase",
+        [2] = 40029,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Dragon!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40027,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Steampunk Dragon",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40109,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Steampunk Dog",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40107,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Cop",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40108,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Ice Dog",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40059,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Ice Bear",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40056,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Ice Cat",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40052,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Frost deer!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40111,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Ice Cop",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40064,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Penguin!",
+    Description = "Require Cash.",
+    Callback = function()
+  local args = {
+        [1] = "purchase",
+        [2] = 40058,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args)) 
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Tv!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40041,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored robot!",
+    Description = "Require Cash.",
+    Callback = function()
+  local args = {
+        [1] = "purchase",
+        [2] = 40043,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args)) 
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Angel",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40032,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Wyvern",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40088,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Dominus",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40040,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Bird",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40012,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Red Angel Mouse!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40008,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored rhino!",
+    Description = "Require Cash.",
+    Callback = function()
+  local args = {
+        [1] = "purchase",
+        [2] = 40025,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args)) 
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Queen Bee!",
+    Description = "Require Cash.",
+    Callback = function()
+       local args = {
+        [1] = "purchase",
+        [2] = 40024,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored tortoise",
+    Description = "Require Cash.",
+    Callback = function()
+  local args = {
+        [1] = "purchase",
+        [2] = 40021,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args)) 
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Headphone!",
+    Description = "Require Cash.",
+    Callback = function()
+  local args = {
+        [1] = "purchase",
+        [2] = 40020,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args)) 
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Wings Dragon.",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40105,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored dark dragon",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40080,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Skorpion!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40118,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Fly Ghost Jelly",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40117,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Ghost Jelly",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40116,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Sword Ninja",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40123,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Blob!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40112,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Color:AddButton({
+    Title = "Buy Colored Angel Mash!",
+    Description = "Require Cash.",
+    Callback = function()
+   local args = {
+        [1] = "purchase",
+        [2] = 40036,
+        [3] = 1
+    }
+ 
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Coin"):WaitForChild("CoinMarketRE"):FireServer(unpack(args))
+    end
+})
+ 
+Tabs.Fuse:AddParagraph({
+        Title = "NOTE:",
+        Content = "Need 6 Of Any Pet you want to Make Gold/Rainbow Pets.",
+    })
+ 
+local Toggle = Tabs.Fuse:AddToggle("Auto Make Golden Pets", { Title = "Auto Make Golden Pets ", Default = false })
+ 
+Toggle:OnChanged(function(state)
+AutoGoldenDupee = state
+end)
+ 
+local Toggle = Tabs.Fuse:AddToggle("Auto Make Rainbow Pets", { Title = "Auto Make Rainbow Pets", Default = false })
+ 
+Toggle:OnChanged(function(state)
+AutoRainbowDupee = state
+end)
+ 
+ 
+-- Settings
+SaveManager:SetLibrary(Fluent)
+InterfaceManager:SetLibrary(Fluent)
+ 
+SaveManager:IgnoreThemeSettings()
+ 
+SaveManager:SetIgnoreIndexes({})
+ 
+InterfaceManager:SetFolder("FluentScriptHub")
+SaveManager:SetFolder("FluentScriptHub/specific-game")
+ 
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
+ 
+ 
+Window:SelectTab(1)
+ 
+Fluent:Notify({
+    Title = "Pets Trading",
+    Content = "Elite Version Has been Loaded.",
+    Duration = 8
+})
